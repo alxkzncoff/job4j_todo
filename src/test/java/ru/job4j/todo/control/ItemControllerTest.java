@@ -95,8 +95,8 @@ public class ItemControllerTest {
         Model model = mock(Model.class);
         ItemService itemService = mock(ItemService.class);
         ItemController itemController = new ItemController(itemService);
-        itemController.makeDone(model, item, 1);
-        verify(itemService).update(1, item);
+        itemController.makeDone(model, 1);
+        verify(itemService).updateDone(1);
     }
 
     @Test

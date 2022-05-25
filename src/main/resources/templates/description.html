@@ -59,10 +59,6 @@
     <div class="row pt-3">
         <div class="btn-toolbar pull-right">
             <form th:action="@{|/makeDone/${item.id}|}" method="POST">
-                <input type="hidden" name="id" th:value="${item.id}"/>
-                <input type="hidden" name="description" th:value="${item.description}"/>
-                <input type="hidden" name="created" th:value="${item.created}"/>
-                <input type="hidden" name="done" th:value="${true}"/>
                 <button th:if="${!item.done}" type="submit" class="btn btn-primary mr-1">Выполнено</button>
             </form>
             <a th:if="${!item.done}" class="btn btn-primary mr-1" th:href="@{|/edit/${item.id}|}" role="button">Редактировать</a>

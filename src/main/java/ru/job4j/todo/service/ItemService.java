@@ -38,6 +38,14 @@ public class ItemService {
     }
 
     /**
+     * Метод меняет статус задачи на "Выполнено".
+     * @param id Идентификационный номер задачи.
+     */
+    public void updateDone(int id) {
+        store.updateDone(id);
+    }
+
+    /**
      * Метод ищет задачу по id.
      * @param id Идентификационный номер задачи.
      * @return Найденная задачу или null.

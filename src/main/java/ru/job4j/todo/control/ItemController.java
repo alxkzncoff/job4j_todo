@@ -56,9 +56,9 @@ public class ItemController {
     }
 
     @PostMapping("/makeDone/{itemId}")
-    public String makeDone(Model model, @ModelAttribute Item item, @PathVariable("itemId") int id) {
+    public String makeDone(Model model, @PathVariable("itemId") int id) {
         model.addAttribute("item", itemService.findById(id));
-        itemService.update(id, item);
+        itemService.updateDone(id);
         return String.format("redirect:/description/%d", id);
     }
 

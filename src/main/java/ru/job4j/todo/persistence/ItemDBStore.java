@@ -71,6 +71,20 @@ public class ItemDBStore {
     }
 
     /**
+     * Метод меняет статус задачи на "Выполнено" в БД.
+     * @param id Идентификационный номер задачи.
+     */
+    public void updateDone(int id) {
+        this.tx(
+                session -> session.createQuery("update Item i set i.done = :newDone"
+                                + " where i.id = :fId")
+                        .setParameter("newDone", true)
+                        .setParameter("fId", id)
+                        .executeUpdate()
+        );
+    }
+
+    /**
      * Метод ищет задачу по id БД.
      * @param id Идентификационный номер задачи.
      * @return Найденная задачу или null.

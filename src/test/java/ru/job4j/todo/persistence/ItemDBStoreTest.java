@@ -34,6 +34,16 @@ public class ItemDBStoreTest {
     }
 
     @Test
+    public void whenUpdateDone() {
+        ItemDBStore store = new ItemDBStore(new Main().sf());
+        Item item = Item.of("test", false);
+        item.setId(1);
+        store.add(item);
+        store.updateDone(1);
+        assertTrue(store.findById(1).isDone());
+    }
+
+    @Test
     public void whenFindById() {
         ItemDBStore store = new ItemDBStore(new Main().sf());
         Item expected = Item.of("test", false);
