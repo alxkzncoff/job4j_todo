@@ -21,13 +21,18 @@ public class Item {
     public Timestamp created = Timestamp.valueOf(LocalDateTime.now());
     private boolean done = false;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public Item() {
     }
 
-    public static Item of(String description, boolean done) {
+    public static Item of(String description, boolean done, User user) {
         Item item = new Item();
         item.description = description;
         item.done = done;
+        item.user = user;
         return item;
     }
 
@@ -61,6 +66,14 @@ public class Item {
 
     public void setDone(boolean done) {
         this.done = done;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

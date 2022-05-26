@@ -8,7 +8,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.todo.model.Item;
+import ru.job4j.todo.model.User;
 import ru.job4j.todo.service.ItemService;
+
+import javax.servlet.http.HttpSession;
 
 @ThreadSafe
 @Controller
@@ -21,25 +24,29 @@ public class ItemController {
     }
 
     @GetMapping("/all")
-    public String all(Model model) {
+    public String all(Model model, HttpSession session) {
+        model.addAttribute("user", currentUser(session));
         model.addAttribute("items", itemService.findAll());
         return "all";
     }
 
     @GetMapping("/done")
-    public String done(Model model) {
+    public String done(Model model, HttpSession session) {
+        model.addAttribute("user", currentUser(session));
         model.addAttribute("items", itemService.findAll());
         return "done";
     }
 
     @GetMapping("/undone")
-    public String undone(Model model) {
+    public String undone(Model model, HttpSession session) {
+        model.addAttribute("user", currentUser(session));
         model.addAttribute("items", itemService.findAll());
         return "undone";
     }
 
     @GetMapping("/addItem")
-    public String addItemForm(Model model) {
+    public String addItemForm(Model model, HttpSession session) {
+        model.addAttribute("user", currentUser(session));
         return "addItem";
     }
 
@@ -50,7 +57,8 @@ public class ItemController {
     }
 
     @GetMapping("/description/{itemId}")
-    public String description(Model model, @PathVariable("itemId") int id) {
+    public String description(Model model, @PathVariable("itemId") int id, HttpSession session) {
+        model.addAttribute("user", currentUser(session));
         model.addAttribute("item", itemService.findById(id));
         return "description";
     }
@@ -63,7 +71,8 @@ public class ItemController {
     }
 
     @GetMapping("/edit/{itemId}")
-    public String editForm(Model model, @PathVariable("itemId") int id) {
+    public String editForm(Model model, @PathVariable("itemId") int id, HttpSession session) {
+        model.addAttribute("user", currentUser(session));
         model.addAttribute("item", itemService.findById(id));
         return "edit";
     }
@@ -78,5 +87,20 @@ public class ItemController {
     public String delete(@PathVariable("itemId") int id) {
         itemService.delete(id);
         return "redirect:/all";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/loginPage";
+    }
+
+    private User currentUser(HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            user = new User();
+            user.setName("Гость");
+        }
+        return user;
     }
 }

@@ -29,6 +29,14 @@
                 <a class="nav-item nav-link" th:href="@{/all}">Все</a>
                 <a class="nav-item nav-link" th:href="@{/done}">Выполненные</a>
                 <a class="nav-item nav-link" th:href="@{/undone}">Новые</a>
+                <a class="nav-item nav-link" th:if="${user.name == 'Гость'}" th:href="@{/loginPage}">
+                    <span th:text="${user.name}"></span>
+                    <span> | Войти</span>
+                </a>
+                <a class="nav-item nav-link" th:if="${user.name != 'Гость'}" th:href="@{/logout}">
+                    <span th:text="${user.email}"></span>
+                    <span> | Выйти</span>
+                </a>
             </div>
         </div>
     </nav>

@@ -1,8 +1,10 @@
 package ru.job4j.todo.persistence;
 
+import org.hibernate.SessionFactory;
 import org.junit.Test;
 import ru.job4j.todo.Main;
 import ru.job4j.todo.model.Item;
+import ru.job4j.todo.model.User;
 
 import java.util.List;
 
@@ -14,8 +16,13 @@ public class ItemDBStoreTest {
 
     @Test
     public void whenAdd() {
-        ItemDBStore store = new ItemDBStore(new Main().sf());
-        Item expected = Item.of("test", false);
+        SessionFactory sf = new Main().sf();
+        User user = User.of("user", "user@mail.com", "password");
+        user.setId(1);
+        UserDBStore userDBStore = new UserDBStore(sf);
+        userDBStore.add(user);
+        ItemDBStore store = new ItemDBStore(sf);
+        Item expected = Item.of("test", false, user);
         store.add(expected);
         List result = store.findAll();
         assertThat((Item) result.get(0), is(expected));
@@ -23,9 +30,14 @@ public class ItemDBStoreTest {
 
     @Test
     public void whenUpdate() {
-        ItemDBStore store = new ItemDBStore(new Main().sf());
-        Item item = Item.of("test1", false);
-        Item updatedItem = Item.of("test2", true);
+        SessionFactory sf = new Main().sf();
+        User user = User.of("user", "user@mail.com", "password");
+        user.setId(1);
+        UserDBStore userDBStore = new UserDBStore(sf);
+        userDBStore.add(user);
+        ItemDBStore store = new ItemDBStore(sf);
+        Item item = Item.of("test1", false, user);
+        Item updatedItem = Item.of("test2", true, user);
         updatedItem.setId(1);
         store.add(item);
         store.update(1, updatedItem);
@@ -35,8 +47,13 @@ public class ItemDBStoreTest {
 
     @Test
     public void whenUpdateDone() {
-        ItemDBStore store = new ItemDBStore(new Main().sf());
-        Item item = Item.of("test", false);
+        SessionFactory sf = new Main().sf();
+        User user = User.of("user", "user@mail.com", "password");
+        user.setId(1);
+        UserDBStore userDBStore = new UserDBStore(sf);
+        userDBStore.add(user);
+        ItemDBStore store = new ItemDBStore(sf);
+        Item item = Item.of("test", false, user);
         item.setId(1);
         store.add(item);
         store.updateDone(1);
@@ -45,8 +62,13 @@ public class ItemDBStoreTest {
 
     @Test
     public void whenFindById() {
-        ItemDBStore store = new ItemDBStore(new Main().sf());
-        Item expected = Item.of("test", false);
+        SessionFactory sf = new Main().sf();
+        User user = User.of("user", "user@mail.com", "password");
+        user.setId(1);
+        UserDBStore userDBStore = new UserDBStore(sf);
+        userDBStore.add(user);
+        ItemDBStore store = new ItemDBStore(sf);
+        Item expected = Item.of("test", false, user);
         store.add(expected);
         Item result = store.findById(1);
         assertThat(result, is(expected));
@@ -54,9 +76,14 @@ public class ItemDBStoreTest {
 
     @Test
     public void whenFindAll() {
-        ItemDBStore store = new ItemDBStore(new Main().sf());
-        Item item1 = Item.of("test1", false);
-        Item item2 = Item.of("test2", true);
+        SessionFactory sf = new Main().sf();
+        User user = User.of("user", "user@mail.com", "password");
+        user.setId(1);
+        UserDBStore userDBStore = new UserDBStore(sf);
+        userDBStore.add(user);
+        ItemDBStore store = new ItemDBStore(sf);
+        Item item1 = Item.of("test1", false, user);
+        Item item2 = Item.of("test2", true, user);
         store.add(item1);
         store.add(item2);
         List result = store.findAll();
@@ -65,8 +92,13 @@ public class ItemDBStoreTest {
 
     @Test
     public void whenDelete() {
-        ItemDBStore store = new ItemDBStore(new Main().sf());
-        Item item = Item.of("test", true);
+        SessionFactory sf = new Main().sf();
+        User user = User.of("user", "user@mail.com", "password");
+        user.setId(1);
+        UserDBStore userDBStore = new UserDBStore(sf);
+        userDBStore.add(user);
+        ItemDBStore store = new ItemDBStore(sf);
+        Item item = Item.of("test", true, user);
         store.add(item);
         store.delete(1);
         assertThat(store.findAll().size(), is(0));

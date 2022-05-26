@@ -29,6 +29,14 @@
                 <a class="nav-item nav-link" th:href="@{/all}">Все</a>
                 <a class="nav-item nav-link" th:href="@{/done}">Выполненные</a>
                 <a class="nav-item nav-link active" href="#">Новые<span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" th:if="${user.name == 'Гость'}" th:href="@{/loginPage}">
+                    <span th:text="${user.name}"></span>
+                    <span> | Войти</span>
+                </a>
+                <a class="nav-item nav-link" th:if="${user.name != 'Гость'}" th:href="@{/logout}">
+                    <span th:text="${user.email}"></span>
+                    <span> | Выйти</span>
+                </a>
             </div>
         </div>
     </nav>
@@ -38,6 +46,7 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Описание</th>
+                <th scope="col">Добавил</th>
                 <th scope="col">Дата создания</th>
                 <th scope="col">Статус</th>
             </tr>
@@ -48,6 +57,7 @@
                 <td th:if="${!item.done}">
                     <a th:href="@{|/description/${item.id}|}" th:text="${item.description}"></a>
                 </td>
+                <td th:if="${!item.done}" th:text="${item.user.name}"></td>
                 <td th:if="${!item.done}" th:text="${item.created}"></td>
                 <td class="table-info" th:if="${!item.done}">В процессе...</td>
             </tr>

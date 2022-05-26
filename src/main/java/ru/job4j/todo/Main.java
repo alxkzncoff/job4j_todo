@@ -1,6 +1,5 @@
 package ru.job4j.todo;
 
-
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
