@@ -54,11 +54,11 @@ public class UserDBStore {
      * @return Найденный пользователь.
      */
     public Optional<User> findById(int id) {
-        return Optional.ofNullable((User) this.tx(
+        return this.tx(
                 session -> session.createQuery("from User where id = :fId")
                         .setParameter("fId", id)
-                        .uniqueResult()
-        ));
+                        .uniqueResultOptional()
+        );
     }
 
     /**
@@ -67,11 +67,11 @@ public class UserDBStore {
      * @return Найденный пользователь или Optional.empty().
      */
     public Optional<User> findByEmail(String email) {
-        return Optional.ofNullable((User) this.tx(
+        return this.tx(
                 session -> session.createQuery("from User where email = :fEmail")
                         .setParameter("fEmail", email)
-                        .uniqueResult()
-        ));
+                        .uniqueResultOptional()
+        );
     }
 
     /**
@@ -81,11 +81,11 @@ public class UserDBStore {
      * @return Найденный пользователь или Optional.empty().
      */
     public Optional<User> findByMailAndPwd(String email, String password) {
-        return Optional.ofNullable((User) this.tx(
+        return this.tx(
                 session -> session.createQuery("from User where email = :fEmail and password = :fPassword")
                         .setParameter("fEmail", email)
                         .setParameter("fPassword", password)
-                        .uniqueResult()
-        ));
+                        .uniqueResultOptional()
+        );
     }
 }

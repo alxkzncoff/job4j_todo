@@ -25,7 +25,9 @@ public class UserController {
     }
 
     @GetMapping("/registration")
-    public String registrationForm(Model model, HttpSession session) {
+    public String registrationForm(Model model, HttpSession session,
+                                   @RequestParam(name = "fail", required = false) Boolean fail) {
+        model.addAttribute("fail", fail);
         model.addAttribute("user", currentUser(session));
         return "/registration";
     }
@@ -35,15 +37,18 @@ public class UserController {
         Optional<User> regUser = userService.findByEmail(user.getEmail());
         if (regUser.isPresent()) {
             model.addAttribute("message", "Пользователь с такой почтой уже существует!");
-            return "redirect:/userRegistrationFail";
+            return "redirect:/registration?fail=true";
         }
         userService.add(user);
-        return "redirect:/userRegistrationSuccess";
+        return "redirect:/loginPage?regSuccess=true";
     }
 
     @GetMapping("/loginPage")
-    public String loginPage(Model model, @RequestParam(name = "fail", required = false) Boolean fail) {
+    public String loginPage(Model model,
+                            @RequestParam(name = "fail", required = false) Boolean fail,
+                            @RequestParam(name = "regSuccess", required = false) Boolean regSuccess) {
         model.addAttribute("fail", fail != null);
+        model.addAttribute("regSuccess", regSuccess != null);
         return "login";
     }
 
@@ -58,16 +63,6 @@ public class UserController {
         HttpSession session = req.getSession();
         session.setAttribute("user", userDb.get());
         return "redirect:/all";
-    }
-
-    @GetMapping("/userRegistrationFail")
-    public String userRegistrationFail() {
-        return "/userRegistrationFail";
-    }
-
-    @GetMapping("/userRegistrationSuccess")
-    public String userRegistrationSuccess() {
-        return "/userRegistrationSuccess";
     }
 
     private User currentUser(HttpSession session) {

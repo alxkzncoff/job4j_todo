@@ -30,3 +30,5 @@ out
 
 testdb.trace.db
 testdb.mv.db
+
+.gz

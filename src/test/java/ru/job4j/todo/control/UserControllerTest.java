@@ -33,7 +33,7 @@ public class UserControllerTest {
         UserController userController = new UserController(userService);
         String page = userController.registration(model, user);
         verify(userService).add(user);
-        assertThat(page, is("redirect:/userRegistrationSuccess"));
+        assertThat(page, is("redirect:/loginPage?regSuccess=true"));
     }
 
     @Test
@@ -46,7 +46,7 @@ public class UserControllerTest {
         UserController userController = new UserController(userService);
         String page = userController.registration(model, user);
         verify(model).addAttribute("message", "Пользователь с такой почтой уже существует!");
-        assertThat(page, is("redirect:/userRegistrationFail"));
+        assertThat(page, is("redirect:/registration?fail=true"));
     }
 
     @Test

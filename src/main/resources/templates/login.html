@@ -39,6 +39,9 @@
                 <div th:if="${fail}" class="alert alert-danger" role="alert">
                     Логин или пароль введены неверно!
                 </div>
+                <div th:if="${regSuccess}" class="alert alert-success" role="alert">
+                    Пользователь успешно зарегистрирован.
+                </div>
                 <form th:action="@{/login}" method="POST">
                     <div class="form-group">
                         <label>Почта</label>
