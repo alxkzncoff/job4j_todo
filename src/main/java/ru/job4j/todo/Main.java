@@ -1,6 +1,5 @@
 package ru.job4j.todo;
 
-
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
@@ -24,6 +23,6 @@ public class Main {
 
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
-        System.out.println("Go to http://localhost:8080/index");
+        System.out.println("Go to http://localhost:8080/all");
     }
 }

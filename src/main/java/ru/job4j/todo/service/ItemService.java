@@ -30,13 +30,19 @@ public class ItemService {
     /**
      * Метод обновляет задачу.
      * @param id Идентификационный номер задачи.
-     * @param description Описание задачи.
-     * @param created Дата создания задачи.
-     * @param done Статус задачи.
+     * @param item Новые данные.
      * @return Обновленная задача.
      */
-    public Item update(int id, String description, Timestamp created, boolean done) {
-        return store.update(id, description, created, done);
+    public Item update(int id, Item item) {
+        return store.update(id, item);
+    }
+
+    /**
+     * Метод меняет статус задачи на "Выполнено".
+     * @param id Идентификационный номер задачи.
+     */
+    public void updateDone(int id) {
+        store.updateDone(id);
     }
 
     /**
@@ -54,5 +60,13 @@ public class ItemService {
      */
     public List findAll() {
         return store.findAll();
+    }
+
+    /**
+     * Метод удаляет задачу.
+     * @param id Идентификационный номер задачи.
+     */
+    public void delete(int id) {
+        store.delete(id);
     }
 }
