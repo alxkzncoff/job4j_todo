@@ -47,6 +47,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Описание</th>
                 <th scope="col">Добавил</th>
+                <th scope="col">Категории</th>
                 <th scope="col">Дата создания</th>
                 <th scope="col">Статус</th>
             </tr>
@@ -58,6 +59,9 @@
                     <a th:href="@{|/description/${item.id}|}" th:text="${item.description}"></a>
                 </td>
                 <td th:if="${item.done}" th:text="${item.user.name}"></td>
+                <td th:if="${item.done}">
+                    <span th:each="category : ${item.categories}" th:text="${category.name} + ' '"></span>
+                </td>
                 <td th:if="${item.done}" th:text="${item.created}"></td>
                 <td class="table-success" th:if="${item.done}">Выполнено.</td>
             </tr>

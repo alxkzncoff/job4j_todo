@@ -4,9 +4,11 @@ import org.junit.Test;
 import org.springframework.ui.Model;
 import ru.job4j.todo.model.Item;
 import ru.job4j.todo.model.User;
+import ru.job4j.todo.service.CategoryService;
 import ru.job4j.todo.service.ItemService;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,9 +29,10 @@ public class ItemControllerTest {
         List<Item> items = Arrays.asList(task1, task2, task3);
         Model model = mock(Model.class);
         ItemService itemService = mock(ItemService.class);
+        CategoryService categoryService = mock(CategoryService.class);
         HttpSession session = mock(HttpSession.class);
         when(itemService.findAll()).thenReturn(items);
-        ItemController itemController = new ItemController(itemService);
+        ItemController itemController = new ItemController(itemService, categoryService);
         String page = itemController.all(model, session);
         verify(model).addAttribute("items", items);
         assertThat(page, is("all"));
@@ -44,9 +47,10 @@ public class ItemControllerTest {
         List<Item> items = Arrays.asList(task1, task2);
         Model model = mock(Model.class);
         ItemService itemService = mock(ItemService.class);
+        CategoryService categoryService = mock(CategoryService.class);
         HttpSession session = mock(HttpSession.class);
         when(itemService.findAll()).thenReturn(items);
-        ItemController itemController = new ItemController(itemService);
+        ItemController itemController = new ItemController(itemService, categoryService);
         String page = itemController.done(model, session);
         verify(model).addAttribute("items", items);
         assertThat(page, is("done"));
@@ -61,9 +65,10 @@ public class ItemControllerTest {
         List<Item> items = Arrays.asList(task1, task2);
         Model model = mock(Model.class);
         ItemService itemService = mock(ItemService.class);
+        CategoryService categoryService = mock(CategoryService.class);
         HttpSession session = mock(HttpSession.class);
         when(itemService.findAll()).thenReturn(items);
-        ItemController itemController = new ItemController(itemService);
+        ItemController itemController = new ItemController(itemService, categoryService);
         String page = itemController.undone(model, session);
         verify(model).addAttribute("items", items);
         assertThat(page, is("undone"));
@@ -74,8 +79,9 @@ public class ItemControllerTest {
         Item item = Item.of("task 1", false, new User());
         item.setId(1);
         ItemService itemService = mock(ItemService.class);
-        ItemController itemController = new ItemController(itemService);
-        itemController.addItem(item);
+        CategoryService categoryService = mock(CategoryService.class);
+        ItemController itemController = new ItemController(itemService, categoryService);
+        itemController.addItem(item, new ArrayList<>());
         verify(itemService).add(item);
     }
 
@@ -85,9 +91,10 @@ public class ItemControllerTest {
         item.setId(1);
         Model model = mock(Model.class);
         ItemService itemService = mock(ItemService.class);
+        CategoryService categoryService = mock(CategoryService.class);
         HttpSession session = mock(HttpSession.class);
         when(itemService.findById(1)).thenReturn(item);
-        ItemController itemController = new ItemController(itemService);
+        ItemController itemController = new ItemController(itemService, categoryService);
         String page = itemController.description(model, 1, session);
         verify(model).addAttribute("item", item);
         assertThat(page, is("description"));
@@ -99,7 +106,8 @@ public class ItemControllerTest {
         item.setId(1);
         Model model = mock(Model.class);
         ItemService itemService = mock(ItemService.class);
-        ItemController itemController = new ItemController(itemService);
+        CategoryService categoryService = mock(CategoryService.class);
+        ItemController itemController = new ItemController(itemService, categoryService);
         itemController.makeDone(model, 1);
         verify(itemService).updateDone(1);
     }
@@ -109,7 +117,8 @@ public class ItemControllerTest {
         Item item = Item.of("task 1", true, new User());
         item.setId(1);
         ItemService itemService = mock(ItemService.class);
-        ItemController itemController = new ItemController(itemService);
+        CategoryService categoryService = mock(CategoryService.class);
+        ItemController itemController = new ItemController(itemService, categoryService);
         itemController.edit(item);
         verify(itemService).update(1, item);
     }
@@ -119,7 +128,8 @@ public class ItemControllerTest {
         Item item = Item.of("task 1", true, new User());
         item.setId(1);
         ItemService itemService = mock(ItemService.class);
-        ItemController itemController = new ItemController(itemService);
+        CategoryService categoryService = mock(CategoryService.class);
+        ItemController itemController = new ItemController(itemService, categoryService);
         itemController.delete(1);
         verify(itemService).delete(1);
     }

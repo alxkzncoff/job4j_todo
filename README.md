@@ -119,6 +119,15 @@
 
 ![all_2](docs/all_2.jpg)
 
+### 5. Категории:
+
+*Добавлено 02.06.22*
+
+Добавлена возможность указывать к какой категории относится задача. При создании новой задачи необходимо
+выбрать одну или несколько категорий с помощью ctrl/shift + click.
+
+![cats](docs/cats.jpg)
+
 [![java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)](https://www.java.com/)
 [![Spring Boot](https://img.shields.io/badge/Spring_Boot-F2F4F9?style=for-the-badge&logo=spring-boot)](https://spring.io/projects/spring-boot)
 [![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com/)

@@ -91,7 +91,9 @@ public class ItemDBStore {
      */
     public Item findById(int id) {
         return this.tx(
-                session -> (Item) session.createQuery("from Item i where i.id = :fId")
+                session -> (Item) session.createQuery("select distinct i "
+                                + "from Item i join fetch i.categories "
+                                + "where i.id = :fId")
                         .setParameter("fId", id)
                         .uniqueResult()
         );
@@ -103,7 +105,8 @@ public class ItemDBStore {
      */
     public List findAll() {
         return this.tx(
-                session -> session.createQuery("from Item").list()
+                session -> session.createQuery("select distinct i from Item i join fetch i.categories")
+                        .list()
         );
     }
 

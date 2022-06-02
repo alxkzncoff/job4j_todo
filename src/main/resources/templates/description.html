@@ -52,6 +52,12 @@
                     <td th:text="${item.description}"></td>
                 </tr>
                 <tr>
+                    <th scope="row">Категории:</th>
+                    <td>
+                        <span th:each="category : ${item.categories}" th:text="${category.name} + ' '"></span>
+                    </td>
+                </tr>
+                <tr>
                     <th scope="row">Дата создания:</th>
                     <td th:text="${item.created}"></td>
                 </tr>

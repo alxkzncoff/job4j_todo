@@ -3,7 +3,9 @@ package ru.job4j.todo.model;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Класс описывающий задачу.
@@ -20,6 +22,9 @@ public class Item {
     private String description;
     public Timestamp created = Timestamp.valueOf(LocalDateTime.now());
     private boolean done = false;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<Category> categories = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -74,6 +79,18 @@ public class Item {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void addCategory(Category category) {
+        this.getCategories().add(category);
     }
 
     @Override

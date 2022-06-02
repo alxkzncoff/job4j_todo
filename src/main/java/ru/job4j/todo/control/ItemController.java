@@ -3,24 +3,25 @@ package ru.job4j.todo.control;
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.job4j.todo.model.Item;
 import ru.job4j.todo.model.User;
+import ru.job4j.todo.service.CategoryService;
 import ru.job4j.todo.service.ItemService;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @ThreadSafe
 @Controller
 public class ItemController {
 
     private final ItemService itemService;
+    private final CategoryService categoryService;
 
-    public ItemController(ItemService itemService) {
+    public ItemController(ItemService itemService, CategoryService categoryService) {
         this.itemService = itemService;
+        this.categoryService = categoryService;
     }
 
     @GetMapping("/all")
@@ -47,11 +48,14 @@ public class ItemController {
     @GetMapping("/addItem")
     public String addItemForm(Model model, HttpSession session) {
         model.addAttribute("user", currentUser(session));
+        model.addAttribute("categories", categoryService.findAll());
         return "addItem";
     }
 
     @PostMapping("/addItem")
-    public String addItem(@ModelAttribute Item item) {
+    public String addItem(@ModelAttribute Item item,
+                          @RequestParam(value = "categoriesId", required = false) List<Integer> categoriesId) {
+        categoriesId.forEach(id -> item.addCategory(categoryService.findById(id)));
         itemService.add(item);
         return "redirect:/all";
     }
