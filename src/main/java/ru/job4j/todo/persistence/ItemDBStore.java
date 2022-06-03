@@ -59,11 +59,9 @@ public class ItemDBStore {
      */
     public Item update(int id, Item item) {
         this.tx(
-                session -> session.createQuery("update Item i set i.description = :newDesc, "
-                                + "i.created = :newCreated, i.done = :newDone where i.id = :fId")
+                session -> session.createQuery("update Item i set i.description = :newDesc "
+                                + " where i.id = :fId")
                         .setParameter("newDesc", item.getDescription())
-                        .setParameter("newCreated", item.getCreated())
-                        .setParameter("newDone", item.isDone())
                         .setParameter("fId", id)
                         .executeUpdate()
         );
@@ -76,8 +74,7 @@ public class ItemDBStore {
      */
     public void updateDone(int id) {
         this.tx(
-                session -> session.createQuery("update Item i set i.done = :newDone"
-                                + " where i.id = :fId")
+                session -> session.createQuery("update Item i set i.done = :newDone where i.id = :fId")
                         .setParameter("newDone", true)
                         .setParameter("fId", id)
                         .executeUpdate()
