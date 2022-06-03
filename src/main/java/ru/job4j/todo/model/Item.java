@@ -22,7 +22,7 @@ public class Item {
     private int id;
     private String description;
     @Temporal(TemporalType.TIMESTAMP)
-    public Date created = new Date(System.currentTimeMillis());
+    private Date created = new Date(System.currentTimeMillis());
     private boolean done = false;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
