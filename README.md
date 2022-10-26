@@ -1,6 +1,40 @@
 # TODO список.
 
-Сервис для отслеживания задач.
+## Общая информация
+
+Проект разработан с целью улучшения навыков работы с различными стеками технологий и представляет
+собой веб сервис для отслеживания задач.
+При необходимости функционал проекта можно расширить.
+
+## Запуск проекта
+
+Для корректной работы приложения необходимо установить следующие программы:
+
+- Java 16 или выше;
+- PostgreSQL 14 или выше;
+- Apache Maven 3.8.3 или выше.
+
+1. Настройка postgreSQL. В терминале набрать следующие команды:
+
+- Ввести логин. Вместо username указать свой;
+```bash
+  psql --username <username>
+```
+- Ввести пароль;
+- Создать базу данных.
+```bash
+  create database todo;
+```
+
+2. Запуск при помощи maven. В терминале набрать следующие команды:
+```
+  mvn spring-boot:run
+```
+
+При необходимости запустить liquibase для создания таблиц в БД.
+```
+  mvn liquibase:update
+```
 
 ## Пример функционирования сервиса.
 
@@ -8,21 +42,33 @@
 
 Для того чтобы добавить задачу, необходимо нажать кнопку "Добавить".
 
-![add](docs/add.jpg)
+<details>
+    <summary>Пример:</summary>
+    <img src="docs/add.jpg" alt="Add">
+</details>
 
 Далее необходимо заполнить поле с описанием задачи и нажать на кнопку "Сохранить".
 
-![save](docs/save.jpg)
+<details>
+    <summary>Пример:</summary>
+    <img src="docs/save.jpg" alt="Save">
+</details>
 
 После этого произойдет перенаправление на страницу со списком всех задач.
 
-![all_1](docs/all_1.jpg)
+<details>
+    <summary>Пример:</summary>
+    <img src="docs/all_1.jpg" alt="All">
+</details>
 
 ### 2. Информация о задаче.
 
 Информацию о задаче можно посмотреть, если в списке задач нажать на описание конкретной задачи.
 
-![desc](docs/desc.jpg)
+<details>
+    <summary>Пример:</summary>
+    <img src="docs/desc.jpg" alt="Description">
+</details>
 
 Пользователь будет перенаправлен на страницу с описанием.
 
@@ -36,12 +82,18 @@
 
 Для того чтобы отредактировать описание задачи, необходимо нажать на кнопку "Редактировать".
 
-![edit](docs/edit.jpg)
+<details>
+    <summary>Пример:</summary>
+    <img src="docs/edit.jpg" alt="Edit">
+</details>
 
 Пользователь будет перенаправлен на страницу с редактированием описания. После внесения изменений
 необходимо нажать кнопку "Сохранить".
 
-![confirm_edit](docs/confirm_edit.jpg)
+<details>
+    <summary>Пример:</summary>
+    <img src="docs/confirm_edit.jpg" alt="Confirm edit">
+</details>
 
 После сохранения изменений произойдет перенаправление на страницу с информацией о задаче, на которой 
 отобразится новая информация.
@@ -51,19 +103,28 @@
 Статус задачи можно сменить с "В процессе..." на "Выполнено". Для этого необходимо нажать соответствующую
 кнопку на странице с информацией о задаче.
 
-![make_done](docs/make_done.jpg)
+<details>
+    <summary>Пример:</summary>
+    <img src="docs/make_done.jpg" alt="Make done">
+</details>
 
 Если у задачи статус "Выполнено", то редактирование для такой задачи становится недоступным, 
 как и изменение статуса. Остается возможным только удалить задачу.
 
-![done](docs/done.jpg)
+<details>
+    <summary>Пример:</summary>
+    <img src="docs/done.jpg" alt="Done">
+</details>
 
 #### Удаление:
 
 Удалить можно как выполненную задачу, так и задачу, которая находится в процессе выполнения. Для этого
 необходимо нажать соответствующую кнопку "Удалить".
 
-![delete](docs/delete.jpg)
+<details>
+    <summary>Пример:</summary>
+    <img src="docs/delete.jpg" alt="Delete">
+</details>
 
 После удаления, пользователь будет перенаправлен на страницу со списком всех задач.
 
@@ -72,13 +133,18 @@
 Отображать можно как весь список задач, так и выполненные и не выполненный задачи по отдельности. Для этого
 нужно выбрать соответствующий раздел в навигационном меню.
 
-![filter_1](docs/filter_1.jpg)
+<details>
+    <summary>Пример:</summary>
+    <img src="docs/filter_1.jpg" alt="Filter">
+</details>
 
 В разделе "Выполненные" отображаются выполненные задачи, в разделе "Новые" соответственно не выполненные.
 
-![filter_2](docs/filter_2.jpg)
-
-![filter_3](docs/filter_3.jpg)
+<details>
+    <summary>Пример:</summary>
+    <img src="docs/filter_2.jpg" alt="Filter">
+    <img src="docs/filter_3.jpg" alt="Filter">
+</details>
 
 ### 4. Регистрация/Авторизация пользователя:
 
@@ -90,7 +156,10 @@
 Если это первое посещение, то пользователю необходимо зарегистрироваться. Для этого необходимо перейти на страницу
 регистрации в левом верхнем углу страницы.
 
-![reg](docs/reg.jpg)
+<details>
+    <summary>Пример:</summary>
+    <img src="docs/reg.jpg" alt="Registration">
+</details>
 
 Для регистрации необходимо указать следующие данные заполнив соответствующие поля:
 
@@ -100,24 +169,39 @@
 
 После чего нажать кнопку "Зарегистрироваться".
 
-![reg_form](docs/reg_form.jpg)
+<details>
+    <summary>Пример:</summary>
+    <img src="docs/reg_form.jpg" alt="Registration form">
+</details>
 
 После регистрации пользователь будет перенаправлен на страницу авторизации с сообщением об успешной регистрации. 
 
-![reg_success](docs/reg_success.jpg)
+<details>
+    <summary>Пример:</summary>
+    <img src="docs/reg_success.jpg" alt="Success registration">
+</details>
 
 Для авторизации необходимо указать почту и пароль, после чего нажать кнопку "Войти".
 
-![signin](docs/signin.jpg)
+<details>
+    <summary>Пример:</summary>
+    <img src="docs/signin.jpg" alt="Sign in">
+</details>
 
 Если пользователь с такой почтой уже зарегистрирован, то будет выведено соответствующее сообщение с предложением 
 указать другие данные.
 
-![reg_fail](docs/reg_fail.jpg)
+<details>
+    <summary>Пример:</summary>
+    <img src="docs/reg_fail.jpg" alt="Registration fail">
+</details>
 
 Теперь в списке задач отображается, какой пользователь добавил задачу.
 
-![all_2](docs/all_2.jpg)
+<details>
+    <summary>Пример:</summary>
+    <img src="docs/all_2.jpg" alt="All">
+</details>
 
 ### 5. Категории:
 
@@ -126,16 +210,23 @@
 Добавлена возможность указывать к какой категории относится задача. При создании новой задачи необходимо
 выбрать одну или несколько категорий с помощью ctrl/shift + click.
 
-![cats](docs/cats.jpg)
+<details>
+    <summary>Пример:</summary>
+    <img src="docs/cats.jpg" alt="Categories">
+</details>
 
 Выбранные категории отображаются в соответствующей колонке таблицы.
 
-![cats_all](docs/cats_all.jpg)
+<details>
+    <summary>Пример:</summary>
+    <img src="docs/cats_all.jpg" alt="All categories">
+</details>
 
-[![java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)](https://www.java.com/)
-[![Spring Boot](https://img.shields.io/badge/Spring_Boot-F2F4F9?style=for-the-badge&logo=spring-boot)](https://spring.io/projects/spring-boot)
-[![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com/)
-[![PostgresSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
-[![Hibernate](https://img.shields.io/badge/Hibernate-59666C?style=for-the-badge&logo=Hibernate&logoColor=white)](https://hibernate.org/)
+## Технологии
+
+[![java](https://img.shields.io/badge/java-16-red)](https://www.java.com/)
+[![maven](https://img.shields.io/badge/apache--maven-3.8.3-blue)](https://maven.apache.org/)
+[![Spring Boot](https://img.shields.io/badge/spring%20boot-2.7.3-brightgreen)](https://spring.io/projects/spring-boot)
+[![PostgresSQL](https://img.shields.io/badge/postgreSQL-14-blue)](https://www.postgresql.org/)
 
 [![Actions Status](https://github.com/alxkzncoff/job4j_todo/workflows/java-ci/badge.svg)](https://github.com/alxkzncoff/job4j_todo/actions)
